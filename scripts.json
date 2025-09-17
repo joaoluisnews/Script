@@ -1,7 +1,7 @@
 {
   "games": [
     {
-      "id": 81566824074063,  // ID do Steal a Brainrot
+      "id": 81566824074063,  // Substitua pelo game.PlaceId real
       "scripts": [
         {
           "tab": "Steal a Brainrot",

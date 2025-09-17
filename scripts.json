@@ -1,12 +1,24 @@
 {
   "games": [
     {
-      "id": 109983668079237,
+      "universeId": 109983668079237,
+      "placeIds": [],  // Vazio = suporte a TODOS os sub-places
       "scripts": [
         {
           "tab": "Steal a Brainrot",
           "name": "Sentry V2 Hub",
           "url": "https://raw.githubusercontent.com/Hades2548/SentryV2Hub/refs/heads/main/Steal%20a%20brainrot.lua"
+        }
+      ]
+    },
+    {
+      "universeId": 2753915549,
+      "placeIds": [],  // Vazio = suporte a TODOS os sub-places do Blox Fruits
+      "scripts": [
+        {
+          "tab": "Blox Fruits",
+          "name": "Auto Farm",
+          "url": "https://raw.githubusercontent.com/exemplo/bf-autofarm.lua"  // Troca pela URL real
         }
       ]
     }

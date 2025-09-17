@@ -1,17 +1,14 @@
 {
-  "13772394638": [
+  "games": [
     {
-      "Name": "Steal a Brainrot",
-      "Author": "Sentry V2 Hub",
-      "URL": "https://raw.githubusercontent.com/Hades2548/SentryV2Hub/main/Steal%20a%20brainrot.lua"
-    }
-  ],
-  "8881231234": [
-    {
-      "Name": "Outro Script",
-      "Author": "Fulano",
-      "URL": "https://raw.githubusercontent.com/Usuario/Repositorio/main/outroscript.lua"
+      "id": 81566824074063,  // ID do Steal a Brainrot
+      "scripts": [
+        {
+          "tab": "Steal a Brainrot",
+          "name": "Sentry V2 Hub",
+          "url": "https://raw.githubusercontent.com/Hades2548/SentryV2Hub/refs/heads/main/Steal%20a%20brainrot.lua"
+        }
+      ]
     }
   ]
 }
-

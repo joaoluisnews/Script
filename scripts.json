@@ -1,14 +1,28 @@
 {
-  "games": [
-    {
-      "universeId": 81566824074063,
-      "scripts": [
-        {
-          "tab": "Steal a Brainrot",
-          "name": "Sentry V2 Hub",
-          "url": "https://raw.githubusercontent.com/Hades2548/SentryV2Hub/refs/heads/main/Steal%20a%20brainrot.lua"
-        }
-      ]
-    }
-  ]
+  "81566824074063": { 
+    "Main": [
+      {
+        "Name": "Script 1",
+        "URL": "https://raw.githubusercontent.com/SeuUser/SeuRepo/main/script1.lua"
+      },
+      {
+        "Name": "Script 2",
+        "URL": "https://raw.githubusercontent.com/SeuUser/SeuRepo/main/script2.lua"
+      }
+    ],
+    "Other Tab": [
+      {
+        "Name": "Outro Script",
+        "URL": "https://raw.githubusercontent.com/SeuUser/SeuRepo/main/outro.lua"
+      }
+    ]
+  },
+  "987654321": {
+    "Main": [
+      {
+        "Name": "Script do Jogo 2",
+        "URL": "https://raw.githubusercontent.com/SeuUser/SeuRepo/main/script3.lua"
+      }
+    ]
+  }
 }

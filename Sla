@@ -42,7 +42,7 @@ InfoTab:CreateParagraph({
 InfoTab:CreateButton({
     Name = "🔗 Copy Discord Invite",
     Callback = function()
-        setclipboard("https://discord.gg/3DxYZEXaFv")
+        setclipboard(https://discord.gg/mXcWtfxTQe")
         Rayfield:Notify({ Title = "Copied!", Content = "Discord invite copied.", Duration = 3 })
     end
 })

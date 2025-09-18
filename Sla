@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local ScriptCount = 0
 local RecentAdditions = {
-    "New key system"
+    "Scripts"
 }
 
 local Window = Rayfield:CreateWindow({
@@ -47,7 +47,7 @@ InfoTab:CreateButton({
     end
 })
 
-Tabs["Universal"] = Window:CreateTab("Universal")
+Tabs["Universal(soon)"] = Window:CreateTab("Universal")
 function AddScript(tab, name, url)
     ScriptCount += 1
     if not Tabs[tab] then Tabs[tab] = Window:CreateTab(tab) end
@@ -101,8 +101,21 @@ AddScript("Steal a brainrot", "xenith", "https://api.luarmor.net/files/v4/loader
 
 AddScript("Fisch", "blackhub", "https://raw.githubusercontent.com/Skibidiking123/Fisch1/refs/heads/main/FischMain")
 
+AddScript("Anime Eternal", "noir hub", "https://raw.githubusercontent.com/Oproxide/BESTSCRIPTSPOSSIBLE/ref/head/main/the.lua")
 
+AddScript("Anime Eternal", "gehlee", "https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a")
 
+AddScript("Anime Eternal", "nexor hub", "https://raw.githubusercontent.com/NexorHub/Games/refs/heads/main/Universal/Scripts.lua")
+
+AddScript("99 night in the forest", "mad buk", "https://raw.githubusercontent.com/Nobody6969696969/Madbuk/refs/heads/main/loader.lua")
+
+AddScript("ink game", "Moondiety", "https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader")
+
+AddScript("ink game", "xenith", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
+
+AddScript("ink game", "lumin hub", "https://lumin-hub.lol/loader.lua")
+
+AddScript("ink game", "meowl", "https://pastefy.app/aydQLtib/raw")
 
 TotalScriptParagraph:Set({
     Title = "📦 Total Scripts",

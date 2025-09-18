@@ -1,0 +1,110 @@
+
+-- Load Rayfield UI
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local ScriptCount = 0
+local RecentAdditions = {
+    "New key system"
+}
+
+local Window = Rayfield:CreateWindow({
+    Name = "Sun Hub",
+    LoadingTitle = "Launching Sun Hub...",
+    LoadingSubtitle = "by iove Lany",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "Sun Hub",
+        FileName = "Config"
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "idk",
+        Subtitle = "Enter your key to access",
+        Note = "Get your key from the Discord",
+        FileName = "SLAPy",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = "Noobs"
+    }
+})
+
+local Tabs = {}
+local InfoTab = Window:CreateTab("📌 Info")
+InfoTab:CreateParagraph({ Title = "👑 Creator", Content = "iove Lany" })
+local TotalScriptParagraph = InfoTab:CreateParagraph({
+    Title = "📦 Total Scripts",
+    Content = "Counting..."
+})
+InfoTab:CreateParagraph({
+    Title = "🆕 Recently Added",
+    Content = table.concat(RecentAdditions, "\n")
+})
+InfoTab:CreateButton({
+    Name = "🔗 Copy Discord Invite",
+    Callback = function()
+        setclipboard("https://discord.gg/3DxYZEXaFv")
+        Rayfield:Notify({ Title = "Copied!", Content = "Discord invite copied.", Duration = 3 })
+    end
+})
+
+Tabs["Universal"] = Window:CreateTab("Universal")
+function AddScript(tab, name, url)
+    ScriptCount += 1
+    if not Tabs[tab] then Tabs[tab] = Window:CreateTab(tab) end
+    Tabs[tab]:CreateButton({
+        Name = name,
+        Callback = function()
+            Rayfield:Notify({ Title = "Sun Hub - "..tab, Content = "Running "..name, Duration = 3 })
+            loadstring(game:HttpGet(url))()
+        end
+    })
+end
+
+
+AddScript("99 night in the forest", "Xenith Hub", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
+
+AddScript("99 night in the forest", "pulse hub", "https://raw.githubusercontent.com/Chavels123/Loader/refs/heads/main/loader.lua")
+
+AddScript("99 night in the forest", "clavnnX", "https://raw.githubusercontent.com/scclav/sc/refs/heads/main/kk")
+
+AddScript("99 night in the forest", "sapphire hub", "https://pastefy.app/z1F9h812/raw")
+
+AddScript("99 night in the forest", "varlox hub", "https://raw.githubusercontent.com/DiosDi/VexonHub/refs/heads/main/VexonHub")
+
+
+AddScript("grow a garden", "zap hub", "https://zaphub.xyz/Exec")
+
+AddScript("grow a garden", "frost hub", "https://init.frostbyte.lol")
+
+AddScript("grow a garden", "Moondiety", "https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader")
+
+AddScript("grow a garden", "forge hub", "https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua")
+
+AddScript("grow a garden", "Xenith hub", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
+
+
+AddScript("Steal a brainrot", "mondiety", "https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader")
+
+AddScript("Steal a brainrot", "koronis", "https://raw.githubusercontent.com/nf-36/Koronis/refs/heads/main/Scripts/hub.lua")
+
+AddScript("Steal a brainrot", "rift", "https://rifton.top/loader.lua")
+
+AddScript("Steal a brainrot", "xenith", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
+
+AddScript("Steal a brainrot", "mondiety", "https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader")
+
+AddScript("Steal a brainrot", "koronis", "https://raw.githubusercontent.com/nf-36/Koronis/refs/heads/main/Scripts/hub.lua")
+
+AddScript("Steal a brainrot", "rift", "https://rifton.top/loader.lua")
+
+AddScript("Steal a brainrot", "xenith", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
+
+AddScript("Fisch", "blackhub", "https://raw.githubusercontent.com/Skibidiking123/Fisch1/refs/heads/main/FischMain")
+
+
+
+
+TotalScriptParagraph:Set({
+    Title = "📦 Total Scripts",
+    Content = tostring(ScriptCount).." scripts loaded."
+})

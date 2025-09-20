@@ -21,13 +21,13 @@ local Window = Rayfield:CreateWindow({
    },
    KeySystem = true,
    KeySettings = {
-      Title = "join in Discord for key ",
+      Title = "discord:https://discord.gg/ejxVFmATBn",
       Subtitle = "Key System",
-      Note = "https://discord.gg/ejxVFmATBn",
+      Note = "join discord for Key",
       FileName = "Sun Hub",
       SaveKey = true,
       GrabKeyFromSite = false,
-      Key = {"12345"}
+      Key = {"Hello"}
    }
 })
 
@@ -63,7 +63,7 @@ InfoTab:CreateButton({
     end
 })
 
-Tabs["Universal(soon)"] = Window:CreateTab("Universal")
+Tabs["Universal"] = Window:CreateTab("Universal")
 
 local ScriptCount = 0
 
@@ -116,6 +116,35 @@ AddScript("ink game", "Moondiety", "https://raw.githubusercontent.com/m00ndiety/
 AddScript("ink game", "xenith", "https://api.luarmor.net/files/v4/loaders/d7be76c234d46ce6770101fded39760c.lua")
 AddScript("ink game", "lumin hub", "https://lumin-hub.lol/loader.lua")
 AddScript("ink game", "meowl", "https://pastefy.app/aydQLtib/raw")
+
+AddScript("Blox fruits", "tsuo hub", "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts")
+
+AddScript("Anime Eternal", "AI hub", "https://raw.githubusercontent.com/AIHub091/AI-Hub/refs/heads/main/Anime-Eternal/Script.lua")
+
+AddScript("Blade ball", "xera", "https://xerateam-xyz.vercel.app/BladeBall.lua")
+
+AddScript("Universal", "REM", "https://e-vil.com/anbu/rem.lua")
+
+AddScript("Universal", "infinite yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+
+AddScript("Universal", "Universal aimbot", "https://raw.githubusercontent.com/agreed69-scripts/open-src-scripts/refs/heads/main/Universal%20Aimbot.lua"
+
+AddScript("Anime Eternal", kennie hub", "https://raw.githubusercontent.com/Kenniel123/Universal-Loader/refs/heads/main/MultiGame"
+
+AddScript("Anime Eternal", "sigma", "https://raw.githubusercontent.com/fpszrxy/sigma/refs/heads/main/Chasesddhub")
+
+AddScript("Anime Eternal", "project madara", "https://raw.githubusercontent.com/IsThisMe01/Project-Madara/refs/heads/main/loader.lua")
+
+AddScript("Anime Eternal", "v3rmVS", "https://raw.githubusercontent.com/v3md4ddy/v3rmVScripts/refs/heads/main/scriptloader.lua")
+
+AddScript("99 night in the forest", "solex", "https://raw.githubusercontent.com/Soldix-Botty/Solex/refs/heads/main/99%20niggas%20kids%20in%20the%20forest")
+
+AddScript("99 night in the forest", "dominus hub", "https://raw.githubusercontent.com/matheusmerigo/Domius/refs/heads/main/Main99Nights.luau")
+
+AddScript("ink game", "vape void", "https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/inkgame.lua")
+
+AddScript("fish it", "space hub", "https://raw.githubusercontent.com/ago106/SpaceHub/refs/heads/main/loader.lua")
+
 
 -- Atualiza contador de scripts
 TotalScriptParagraph:Set({

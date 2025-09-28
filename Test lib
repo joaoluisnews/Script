@@ -1,0 +1,678 @@
+-- Services
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Colors
+local Colors = {
+    Primary = Color3.fromRGB(25, 125, 250),
+    LightPrimary = Color3.fromRGB(60, 170, 255),
+    DarkPrimary = Color3.fromRGB(15, 60, 120),
+    Background = Color3.fromRGB(18, 18, 20),
+    Text = Color3.fromRGB(245, 245, 245),
+    Accent = Color3.fromRGB(100, 100, 110),
+    Shadow = Color3.fromRGB(0, 0, 0),
+}
+
+-- Utility functions
+local function addCorner(frame, radius)
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, radius)
+    corner.Parent = frame
+end
+
+local function addShadow(frame)
+    local shadow = Instance.new("Frame")
+    shadow.Size = UDim2.new(1, 6, 1, 6)
+    shadow.Position = UDim2.new(0, -3, 0, -3)
+    shadow.BackgroundColor3 = Colors.Shadow
+    shadow.BackgroundTransparency = 0.8
+    shadow.ZIndex = frame.ZIndex - 1
+    shadow.Parent = frame
+    addCorner(shadow, 8)
+end
+
+local function addStroke(frame, thickness, color)
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = thickness
+    stroke.Color = color
+    stroke.Parent = frame
+end
+
+-- Main UI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.CoreGui
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 500, 0, 350)
+MainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
+MainFrame.BackgroundColor3 = Colors.Background
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = ScreenGui
+addCorner(MainFrame, 12)
+addShadow(MainFrame)
+
+-- TopBar
+local TopBar = Instance.new("Frame")
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.BackgroundColor3 = Colors.DarkPrimary
+TopBar.Parent = MainFrame
+addCorner(TopBar, 12)
+addStroke(TopBar, 1, Colors.LightPrimary)
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, -10, 1, 0)
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.Text = "Sun Hub"
+Title.TextColor3 = Colors.Text
+Title.TextSize = 18
+Title.Font = Enum.Font.GothamSemibold
+Title.BackgroundTransparency = 1
+Title.Parent = TopBar
+
+-- Close Button
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
+CloseButton.Text = "✖"
+CloseButton.Font = Enum.Font.GothamSemibold
+CloseButton.TextSize = 18
+CloseButton.TextColor3 = Colors.Text
+CloseButton.BackgroundColor3 = Colors.Primary
+CloseButton.BackgroundTransparency = 0.3
+CloseButton.Parent = TopBar
+addCorner(CloseButton, 6)
+addShadow(CloseButton)
+
+CloseButton.MouseEnter:Connect(function()
+    TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundTransparency = 0}):Play()
+end)
+CloseButton.MouseLeave:Connect(function()
+    TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundTransparency = 0.3}):Play()
+end)
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- Tab Container
+local TabContainer = Instance.new("Frame")
+TabContainer.Size = UDim2.new(1, 0, 1, -40)
+TabContainer.Position = UDim2.new(0, 0, 0, 40)
+TabContainer.BackgroundTransparency = 1
+TabContainer.Parent = MainFrame
+
+-- Example Tab Button
+local TabButton = Instance.new("TextButton")
+TabButton.Size = UDim2.new(0, 100, 0, 30)
+TabButton.Position = UDim2.new(0, 10, 0, 10)
+TabButton.Text = "Main"
+TabButton.Font = Enum.Font.GothamSemibold
+TabButton.TextSize = 14
+TabButton.TextColor3 = Colors.Text
+TabButton.BackgroundColor3 = Colors.Primary
+TabButton.BackgroundTransparency = 0.3
+TabButton.Parent = TabContainer
+addCorner(TabButton, 8)
+addShadow(TabButton)
+
+TabButton.MouseEnter:Connect(function()
+    TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundTransparency = 0}):Play()
+end)
+TabButton.MouseLeave:Connect(function()
+    TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundTransparency = 0.3}):Play()
+end)
+
+print("UI base estilizada carregada! Próximo passo: componentes modernos.")
+--[[ ===========================
+    FUNÇÕES PARA COMPONENTES
+=========================== ]]--
+
+local function createButton(parent, text, callback)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 200, 0, 35)
+    button.Position = UDim2.new(0, 20, 0, 50)
+    button.Text = text
+    button.Font = Enum.Font.GothamSemibold
+    button.TextSize = 16
+    button.TextColor3 = Colors.Text
+    button.BackgroundColor3 = Colors.Primary
+    button.BackgroundTransparency = 0.2
+    button.Parent = parent
+    addCorner(button, 8)
+    addShadow(button)
+
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundTransparency = 0}):Play()
+    end)
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundTransparency = 0.2}):Play()
+    end)
+
+    button.MouseButton1Click:Connect(function()
+        callback()
+    end)
+    return button
+end
+
+local function createToggle(parent, text, callback)
+    local toggleFrame = Instance.new("Frame")
+    toggleFrame.Size = UDim2.new(0, 200, 0, 35)
+    toggleFrame.Position = UDim2.new(0, 20, 0, 100)
+    toggleFrame.BackgroundColor3 = Colors.Background
+    toggleFrame.Parent = parent
+    addCorner(toggleFrame, 8)
+    addShadow(toggleFrame)
+
+    local label = Instance.new("TextLabel")
+    label.Text = text
+    label.Size = UDim2.new(0.7, 0, 1, 0)
+    label.Position = UDim2.new(0, 10, 0, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Colors.Text
+    label.Font = Enum.Font.GothamSemibold
+    label.TextSize = 14
+    label.Parent = toggleFrame
+
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 30, 0, 30)
+    button.Position = UDim2.new(1, -40, 0, 2)
+    button.BackgroundColor3 = Colors.Primary
+    button.Text = ""
+    button.Parent = toggleFrame
+    addCorner(button, 6)
+    addShadow(button)
+
+    local toggled = false
+    button.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        button.BackgroundColor3 = toggled and Colors.LightPrimary or Colors.Primary
+        callback(toggled)
+    end)
+    return toggleFrame
+end
+
+local function createSlider(parent, text, min, max, default, callback)
+    local sliderFrame = Instance.new("Frame")
+    sliderFrame.Size = UDim2.new(0, 200, 0, 40)
+    sliderFrame.Position = UDim2.new(0, 20, 0, 150)
+    sliderFrame.BackgroundColor3 = Colors.Background
+    sliderFrame.Parent = parent
+    addCorner(sliderFrame, 8)
+    addShadow(sliderFrame)
+
+    local label = Instance.new("TextLabel")
+    label.Text = text.." : "..tostring(default)
+    label.Size = UDim2.new(1, -10, 0, 15)
+    label.Position = UDim2.new(0, 5, 0, 2)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Colors.Text
+    label.Font = Enum.Font.GothamSemibold
+    label.TextSize = 14
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Parent = sliderFrame
+
+    local sliderBar = Instance.new("Frame")
+    sliderBar.Size = UDim2.new(1, -10, 0, 8)
+    sliderBar.Position = UDim2.new(0, 5, 0, 25)
+    sliderBar.BackgroundColor3 = Colors.Accent
+    sliderBar.Parent = sliderFrame
+    addCorner(sliderBar, 4)
+
+    local sliderFill = Instance.new("Frame")
+    sliderFill.Size = UDim2.new((default-min)/(max-min), 1, 1, 0)
+    sliderFill.BackgroundColor3 = Colors.Primary
+    sliderFill.Parent = sliderBar
+    addCorner(sliderFill, 4)
+
+    local dragging = false
+    sliderBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+        end
+    end)
+    sliderBar.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+    sliderBar.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local mousePos = input.Position.X - sliderBar.AbsolutePosition.X
+            local pct = math.clamp(mousePos / sliderBar.AbsoluteSize.X, 0, 1)
+            sliderFill.Size = UDim2.new(pct, 0, 1, 0)
+            local value = math.floor(min + (max-min)*pct)
+            label.Text = text.." : "..tostring(value)
+            callback(value)
+        end
+    end)
+    return sliderFrame
+end
+
+--[[ ===========================
+    EXEMPLO DE USO
+=========================== ]]--
+
+createButton(TabContainer, "Exemplo Button", function()
+    print("Button clicado!")
+end)
+
+createToggle(TabContainer, "Exemplo Toggle", function(state)
+    print("Toggle:", state)
+end)
+
+createSlider(TabContainer, "Exemplo Slider", 0, 100, 50, function(value)
+    print("Slider:", value)
+end)
+
+--[[ ===========================
+    DROPDOWN
+=========================== ]]--
+
+local function createDropdown(parent, text, options, callback)
+    local dropdownFrame = Instance.new("Frame")
+    dropdownFrame.Size = UDim2.new(0, 200, 0, 35)
+    dropdownFrame.Position = UDim2.new(0, 20, 0, 200)
+    dropdownFrame.BackgroundColor3 = Colors.Background
+    dropdownFrame.Parent = parent
+    addCorner(dropdownFrame, 8)
+    addShadow(dropdownFrame)
+
+    local label = Instance.new("TextLabel")
+    label.Text = text
+    label.Size = UDim2.new(0.7, 0, 1, 0)
+    label.Position = UDim2.new(0, 10, 0, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Colors.Text
+    label.Font = Enum.Font.GothamSemibold
+    label.TextSize = 14
+    label.Parent = dropdownFrame
+
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Size = UDim2.new(0, 30, 0, 30)
+    toggleButton.Position = UDim2.new(1, -40, 0, 2)
+    toggleButton.BackgroundColor3 = Colors.Primary
+    toggleButton.Text = "v"
+    toggleButton.Font = Enum.Font.GothamBold
+    toggleButton.TextSize = 16
+    toggleButton.TextColor3 = Colors.Text
+    toggleButton.Parent = dropdownFrame
+    addCorner(toggleButton, 6)
+    addShadow(toggleButton)
+
+    local optionsFrame = Instance.new("Frame")
+    optionsFrame.Size = UDim2.new(1, 0, 0, #options*30)
+    optionsFrame.Position = UDim2.new(0, 0, 1, 0)
+    optionsFrame.BackgroundColor3 = Colors.Background
+    optionsFrame.Visible = false
+    optionsFrame.Parent = dropdownFrame
+    addCorner(optionsFrame, 8)
+    addShadow(optionsFrame)
+
+    for i, option in pairs(options) do
+        local optButton = Instance.new("TextButton")
+        optButton.Size = UDim2.new(1, 0, 0, 30)
+        optButton.Position = UDim2.new(0, 0, 0, (i-1)*30)
+        optButton.BackgroundColor3 = Colors.Primary
+        optButton.Text = option
+        optButton.Font = Enum.Font.Gotham
+        optButton.TextSize = 14
+        optButton.TextColor3 = Colors.Text
+        optButton.Parent = optionsFrame
+        addCorner(optButton, 6)
+        addShadow(optButton)
+
+        optButton.MouseButton1Click:Connect(function()
+            label.Text = option
+            optionsFrame.Visible = false
+            callback(option)
+        end)
+    end
+
+    toggleButton.MouseButton1Click:Connect(function()
+        optionsFrame.Visible = not optionsFrame.Visible
+    end)
+
+    return dropdownFrame
+end
+
+--[[ ===========================
+    INPUT / TEXTBOX
+=========================== ]]--
+
+local function createInput(parent, text, placeholder, callback)
+    local inputFrame = Instance.new("Frame")
+    inputFrame.Size = UDim2.new(0, 200, 0, 35)
+    inputFrame.Position = UDim2.new(0, 20, 0, 250)
+    inputFrame.BackgroundColor3 = Colors.Background
+    inputFrame.Parent = parent
+    addCorner(inputFrame, 8)
+    addShadow(inputFrame)
+
+    local label = Instance.new("TextLabel")
+    label.Text = text
+    label.Size = UDim2.new(0.7, 0, 1, 0)
+    label.Position = UDim2.new(0, 10, 0, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Colors.Text
+    label.Font = Enum.Font.GothamSemibold
+    label.TextSize = 14
+    label.Parent = inputFrame
+
+    local textbox = Instance.new("TextBox")
+    textbox.Size = UDim2.new(0.7, 0, 1, 0)
+    textbox.Position = UDim2.new(0.3, -5, 0, 0)
+    textbox.BackgroundColor3 = Colors.Primary
+    textbox.PlaceholderText = placeholder or ""
+    textbox.TextColor3 = Colors.Text
+    textbox.Font = Enum.Font.Gotham
+    textbox.TextSize = 14
+    textbox.ClearTextOnFocus = false
+    textbox.Parent = inputFrame
+    addCorner(textbox, 6)
+    addShadow(textbox)
+
+    textbox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            callback(textbox.Text)
+        end
+    end)
+    return inputFrame
+end
+
+--[[ ===========================
+    EXEMPLO DE USO
+=========================== ]]--
+
+createDropdown(TabContainer, "Exemplo Dropdown", {"Opção 1", "Opção 2", "Opção 3"}, function(option)
+    print("Selecionado:", option)
+end)
+
+createInput(TabContainer, "Exemplo Input", "Digite algo...", function(text)
+    print("Input:", text)
+end)
+
+
+--[[ ===========================
+    CONTAINER PRINCIPAL
+=========================== ]]--
+
+local MainContainer = Instance.new("Frame")
+MainContainer.Size = UDim2.new(0, 450, 0, 400)
+MainContainer.Position = UDim2.new(0.5, -225, 0.5, -200)
+MainContainer.BackgroundColor3 = Colors.Background
+MainContainer.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
+addCorner(MainContainer, 12)
+addShadow(MainContainer)
+
+--[[ ===========================
+    BARRA LATERAL
+=========================== ]]--
+
+local Sidebar = Instance.new("Frame")
+Sidebar.Size = UDim2.new(0, 120, 1, 0)
+Sidebar.Position = UDim2.new(0, 0, 0, 0)
+Sidebar.BackgroundColor3 = Colors.Primary
+Sidebar.Parent = MainContainer
+addCorner(Sidebar, 12)
+addShadow(Sidebar)
+
+local function createTabButton(text, index)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, -20, 0, 40)
+    btn.Position = UDim2.new(0, 10, 0, 10 + (index-1)*50)
+    btn.BackgroundColor3 = Colors.Secondary
+    btn.Text = text
+    btn.Font = Enum.Font.GothamSemibold
+    btn.TextSize = 14
+    btn.TextColor3 = Colors.Text
+    btn.Parent = Sidebar
+    addCorner(btn, 8)
+    addShadow(btn)
+    return btn
+end
+
+--[[ ===========================
+    TABS
+=========================== ]]--
+
+local Tabs = {}
+local TabContainer = Instance.new("Frame")
+TabContainer.Size = UDim2.new(1, -120, 1, 0)
+TabContainer.Position = UDim2.new(0, 120, 0, 0)
+TabContainer.BackgroundTransparency = 1
+TabContainer.Parent = MainContainer
+
+local function createTab(name)
+    local tabFrame = Instance.new("Frame")
+    tabFrame.Size = UDim2.new(1, 0, 1, 0)
+    tabFrame.BackgroundTransparency = 1
+    tabFrame.Visible = false
+    tabFrame.Parent = TabContainer
+    Tabs[name] = tabFrame
+    return tabFrame
+end
+
+--[[ ===========================
+    EXEMPLO DE ABAS
+=========================== ]]--
+
+local tab1 = createTab("Tab 1")
+local tab2 = createTab("Tab 2")
+
+local btn1 = createTabButton("Tab 1", 1)
+local btn2 = createTabButton("Tab 2", 2)
+
+btn1.MouseButton1Click:Connect(function()
+    for _, tab in pairs(Tabs) do tab.Visible = false end
+    tab1.Visible = true
+end)
+
+btn2.MouseButton1Click:Connect(function()
+    for _, tab in pairs(Tabs) do tab.Visible = false end
+    tab2.Visible = true
+end)
+
+-- Ativa a primeira aba por padrão
+tab1.Visible = true
+
+
+-- Parte 5: Inputs, Dropdowns e Outros Elementos (UI Moderna)
+local function CreateInput(section, title, placeholder, callback)
+    local inputFrame = Instance.new("Frame")
+    inputFrame.Size = UDim2.new(1, 0, 0, 40)
+    inputFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    inputFrame.BorderSizePixel = 0
+    inputFrame.Parent = section
+
+    local inputLabel = Instance.new("TextLabel")
+    inputLabel.Size = UDim2.new(0.3, 0, 1, 0)
+    inputLabel.Text = title
+    inputLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    inputLabel.BackgroundTransparency = 1
+    inputLabel.Font = Enum.Font.Gotham
+    inputLabel.TextSize = 14
+    inputLabel.TextXAlignment = Enum.TextXAlignment.Left
+    inputLabel.Parent = inputFrame
+
+    local inputBox = Instance.new("TextBox")
+    inputBox.Size = UDim2.new(0.65, 0, 0.8, 0)
+    inputBox.Position = UDim2.new(0.33, 0, 0.1, 0)
+    inputBox.PlaceholderText = placeholder
+    inputBox.Text = ""
+    inputBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    inputBox.BorderSizePixel = 0
+    inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    inputBox.Font = Enum.Font.Gotham
+    inputBox.TextSize = 14
+    inputBox.Parent = inputFrame
+
+    inputBox.FocusLost:Connect(function()
+        callback(inputBox.Text)
+    end)
+end
+
+-- Dropdown Moderno
+local function CreateDropdown(section, title, options, callback)
+    local dropdownFrame = Instance.new("Frame")
+    dropdownFrame.Size = UDim2.new(1, 0, 0, 35)
+    dropdownFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    dropdownFrame.BorderSizePixel = 0
+    dropdownFrame.Parent = section
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(0.5, 0, 1, 0)
+    titleLabel.Text = title
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Font = Enum.Font.Gotham
+    titleLabel.TextSize = 14
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.Parent = dropdownFrame
+
+    local dropdownButton = Instance.new("TextButton")
+    dropdownButton.Size = UDim2.new(0.45, 0, 0.8, 0)
+    dropdownButton.Position = UDim2.new(0.52, 0, 0.1, 0)
+    dropdownButton.Text = "Selecionar"
+    dropdownButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    dropdownButton.BorderSizePixel = 0
+    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownButton.Font = Enum.Font.Gotham
+    dropdownButton.TextSize = 14
+    dropdownButton.Parent = dropdownFrame
+
+    local optionFrame = Instance.new("Frame")
+    optionFrame.Size = UDim2.new(1, 0, 0, #options * 30)
+    optionFrame.Position = UDim2.new(0, 0, 1, 0)
+    optionFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    optionFrame.Visible = false
+    optionFrame.BorderSizePixel = 0
+    optionFrame.Parent = dropdownFrame
+
+    for i, option in ipairs(options) do
+        local optionButton = Instance.new("TextButton")
+        optionButton.Size = UDim2.new(1, 0, 0, 30)
+        optionButton.Position = UDim2.new(0, 0, 0, (i-1)*30)
+        optionButton.Text = option
+        optionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        optionButton.BorderSizePixel = 0
+        optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        optionButton.Font = Enum.Font.Gotham
+        optionButton.TextSize = 14
+        optionButton.Parent = optionFrame
+
+        optionButton.MouseButton1Click:Connect(function()
+            dropdownButton.Text = option
+            callback(option)
+            optionFrame.Visible = false
+        end)
+    end
+
+    dropdownButton.MouseButton1Click:Connect(function()
+        optionFrame.Visible = not optionFrame.Visible
+    end)
+end
+-- Parte 6: Checkboxes, Sliders e Hover (UI Moderna)
+
+-- Checkbox
+local function CreateCheckbox(section, title, default, callback)
+    local checkboxFrame = Instance.new("Frame")
+    checkboxFrame.Size = UDim2.new(1, 0, 0, 30)
+    checkboxFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    checkboxFrame.BorderSizePixel = 0
+    checkboxFrame.Parent = section
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0.8, 0, 1, 0)
+    label.Text = title
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.BackgroundTransparency = 1
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 14
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Parent = checkboxFrame
+
+    local box = Instance.new("Frame")
+    box.Size = UDim2.new(0, 20, 0, 20)
+    box.Position = UDim2.new(0.85, 0, 0.15, 0)
+    box.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    box.BorderSizePixel = 0
+    box.Parent = checkboxFrame
+
+    local check = Instance.new("Frame")
+    check.Size = UDim2.new(0.8, 0, 0.8, 0)
+    check.Position = UDim2.new(0.1, 0, 0.1, 0)
+    check.BackgroundColor3 = Color3.fromRGB(0, 200, 150)
+    check.Visible = default
+    check.Parent = box
+
+    box.MouseButton1Click:Connect(function()
+        check.Visible = not check.Visible
+        callback(check.Visible)
+    end)
+end
+
+-- Slider
+local function CreateSlider(section, title, min, max, default, callback)
+    local sliderFrame = Instance.new("Frame")
+    sliderFrame.Size = UDim2.new(1, 0, 0, 40)
+    sliderFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    sliderFrame.BorderSizePixel = 0
+    sliderFrame.Parent = section
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0.4, 0, 1, 0)
+    label.Text = title .. ": " .. default
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.BackgroundTransparency = 1
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 14
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Parent = sliderFrame
+
+    local sliderBg = Instance.new("Frame")
+    sliderBg.Size = UDim2.new(0.55, 0, 0.3, 0)
+    sliderBg.Position = UDim2.new(0.43, 0, 0.35, 0)
+    sliderBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    sliderBg.BorderSizePixel = 0
+    sliderBg.Parent = sliderFrame
+
+    local sliderFill = Instance.new("Frame")
+    sliderFill.Size = UDim2.new((default - min)/(max - min), 0, 1, 0)
+    sliderFill.BackgroundColor3 = Color3.fromRGB(0, 200, 150)
+    sliderFill.BorderSizePixel = 0
+    sliderFill.Parent = sliderBg
+
+    local dragging = false
+    sliderBg.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+        end
+    end)
+
+    sliderBg.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+
+    sliderBg.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local mousePos = input.Position.X - sliderBg.AbsolutePosition.X
+            local percent = math.clamp(mousePos / sliderBg.AbsoluteSize.X, 0, 1)
+            sliderFill.Size = UDim2.new(percent, 0, 1, 0)
+            local value = math.floor(min + (max - min) * percent)
+            label.Text = title .. ": " .. value
+            callback(value)
+        end
+    end)
+end
+
+-- Hover Effect (para qualquer botão)
+local function AddHoverEffect(button)
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end)
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    end)
+end

@@ -1,0 +1,24 @@
+-- Mash Potato Haxe$$738
+-- Note: temp fix for auto farm 😎😎😎😎😎
+-- Additional Note: elf is NOT GAY!!! 
+-- i am very very cool oum :ehdodol0:
+
+local shared = odh_shared_plugins
+
+if not shared then
+    error("No odh shared plugin library has been found in this environment.")
+    return
+end -- well this block is unnecessary, you could've remove these lines and put this file on auto execute instead but this works.
+
+workspace.DescendantAdded:Connect(function(child)
+    if child.Name == "Coin_Server" and child.Parent.Name == "CoinContainer" and child:GetAttribute("CoinID") == "Candy" then
+        child:SetAttribute("CoinID", "BeachBall") -- replaces the id so that the script will assume that this coin was a beachball and not a fucking candy cus script's outdated. 🤪🤪
+        return
+    end
+
+    -- do some extension fuckass logic here if you want to but idk vro
+
+    -- child:SetAttribute("DOODODODOP", "you gay af admit it already")
+end)
+
+shared.Notify("<font color=\"rgb(0, 255, 0)\">Runtime Auto Farm Fix</font> enabled!", 1) -- i wish i could replace this with "go die bitch"
